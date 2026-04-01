@@ -136,9 +136,22 @@
     @media (max-width: 320px) {
       .grid { grid-template-columns: 1fr; }
     }
+
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body > *:not(#starfield) {
+      position: relative;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
+  <canvas id="starfield"></canvas>
 
   <header>
     <div class="logo-circle">
@@ -205,5 +218,56 @@
     &copy; 2022 - 2026 VRAY MIRROR · Все права защищены
   </footer>
 
+  <script>
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    const STAR_COUNT = 220;
+    const stars = [];
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function randomStar() {
+      return {
+        x:     Math.random() * canvas.width,
+        y:     Math.random() * canvas.height,
+        r:     Math.random() * 1.4 + 0.2,
+        speed: Math.random() * 0.18 + 0.04,
+        alpha: Math.random() * 0.6 + 0.3,
+      };
+    }
+
+    function init() {
+      resize();
+      stars.length = 0;
+      for (let i = 0; i < STAR_COUNT; i++) stars.push(randomStar());
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const s of stars) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+        ctx.fill();
+
+        s.y += s.speed;
+        if (s.y > canvas.height + 2) {
+          s.x     = Math.random() * canvas.width;
+          s.y     = -2;
+          s.speed = Math.random() * 0.18 + 0.04;
+          s.alpha = Math.random() * 0.6 + 0.3;
+          s.r     = Math.random() * 1.4 + 0.2;
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => { resize(); });
+    init();
+    draw();
+  </script>
 </body>
 </html>
