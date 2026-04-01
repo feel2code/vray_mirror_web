@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VRAY MIRROR — Поддержка</title>
+  <link rel="icon" type="image/png" href="VM.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d0d0f;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 3rem;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .logo-circle {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #3a3a4a;
+      background: #1a1a24;
+      flex-shrink: 0;
+    }
+
+    .logo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+    }
+
+    h1 span {
+      color: #7c6af7;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #888;
+      margin-top: 0.25rem;
+    }
+
+    .support-text {
+      max-width: 560px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #999;
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      background: #16161e;
+      border: 1px solid #2a2a36;
+      border-radius: 16px;
+      padding: 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: #7c6af7;
+      transform: translateY(-3px);
+    }
+
+    .card-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #d0d0e8;
+      letter-spacing: 0.03em;
+    }
+
+    .card img.qr {
+      width: 100%;
+      max-width: 180px;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid #2a2a36;
+    }
+
+    /* messenger accent colours */
+    .card.telegram .card-label { color: #2aabee; }
+    .card.signal   .card-label { color: #3a96dd; }
+    .card.kakaotalk .card-label { color: #f7e600; }
+    .card.deltachat  .card-label { color: #37a77c; }
+    .card.whatsapp   .card-label { color: #25d366; }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.78rem;
+      color: #444;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.4rem; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+      .logo-circle { width: 76px; height: 76px; }
+    }
+
+    @media (max-width: 320px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-circle">
+      <img src="VM.png" alt="VRAY MIRROR Logo" />
+    </div>
+    <div>
+      <h1>VRAY <span>MIRROR</span></h1>
+      <p class="subtitle">Техническая поддержка</p>
+    </div>
+  </header>
+
+  <p class="support-text">Если у вас возникли вопросы или проблемы — отсканируйте один из QR-кодов ниже, чтобы написать нам в удобном мессенджере. Мы отвечаем быстро и помогаем разобраться с любой ситуацией.</p>
+
+  <main class="grid">
+
+    <div class="card telegram">
+      <img class="qr" src="telegram.jpg" alt="Telegram QR" />
+      <p class="card-label">Telegram</p>
+    </div>
+
+    <div class="card signal">
+      <img class="qr" src="signal.jpg" alt="Signal QR" />
+      <p class="card-label">Signal</p>
+    </div>
+
+    <div class="card kakaotalk">
+      <img class="qr" src="kakaotalk.jpg" alt="KakaoTalk QR" />
+      <p class="card-label">KakaoTalk</p>
+    </div>
+
+    <div class="card deltachat">
+      <img class="qr" src="deltachat.jpg" alt="Delta Chat QR" />
+      <p class="card-label">Delta Chat</p>
+    </div>
+
+    <div class="card whatsapp">
+      <img class="qr" src="whatsapp.jpg" alt="WhatsApp QR" />
+      <p class="card-label">WhatsApp</p>
+    </div>
+
+  </main>
+
+  <footer>
+    &copy; 2022 - 2026 VRAY MIRROR · Все права защищены
+  </footer>
+
+</body>
+</html>
