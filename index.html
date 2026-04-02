@@ -91,6 +91,119 @@
       transform: translateY(-2px);
     }
 
+    .link-converter-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    .converter-form {
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      background: #16161e;
+      border: 1px solid #2a2a36;
+      border-radius: 14px;
+      padding: 1rem 1.1rem;
+    }
+
+    .converter-form.visible {
+      display: flex;
+    }
+
+    .converter-form label {
+      font-size: 0.88rem;
+      color: #aaa;
+      font-weight: 500;
+    }
+
+    .converter-form textarea {
+      width: 100%;
+      min-height: 80px;
+      background: #0d0d0f;
+      border: 1px solid #3a3a4a;
+      border-radius: 8px;
+      color: #e0e0e0;
+      font-size: 0.92rem;
+      font-family: inherit;
+      padding: 0.6rem 0.8rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .converter-form textarea:focus {
+      border-color: #7c6af7;
+    }
+
+    .converter-result {
+      display: none;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .converter-result.visible {
+      display: flex;
+    }
+
+    .converter-result label {
+      font-size: 0.82rem;
+      color: #7c6af7;
+    }
+
+    .converter-result .result-box {
+      background: #0d0d0f;
+      border: 1px solid #3a3a4a;
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.88rem;
+      color: #c0ffc0;
+      word-break: break-all;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .converter-result .result-box:hover {
+      border-color: #7c6af7;
+    }
+
+    .converter-copy-hint {
+      font-size: 0.75rem;
+      color: #555;
+    }
+
+    .vray-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
+      color: #1a1a1a;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: filter 0.2s, transform 0.2s;
+    }
+
+    .vray-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    .vray-btn .vray-icon {
+      width: 1.15em;
+      height: 1.15em;
+      border-radius: 3px;
+      object-fit: cover;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -186,6 +299,22 @@
   </header>
 
   <p class="support-text">Ссылка на бота для покупки подписки <a href="https://t.me/mirror_move_bot" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;vertical-align:middle;"><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24" fill="#2aabee"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.367l-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.537-.194 1.006.131.983.19z"/></svg></a>.<br>Если у вас возникли вопросы или проблемы — отсканируйте один из QR-кодов ниже, чтобы написать нам в удобном мессенджере. Мы отвечаем быстро и помогаем разобраться с любой ситуацией.</p>
+
+  <div class="link-converter-wrap">
+    <div class="converter-form" id="converterForm">
+      <label for="converterInput">Вставьте предыдущую ссылку</label>
+      <textarea id="converterInput" placeholder="https://89.125.88.65/..."></textarea>
+      <div class="converter-result" id="converterResult">
+        <label>Новая ссылка (нажмите чтобы скопировать)</label>
+        <div class="result-box" id="resultBox" onclick="copyResult()"></div>
+        <span class="converter-copy-hint" id="copyHint"></span>
+      </div>
+    </div>
+    <button class="vray-btn" onclick="toggleConverter()">
+      <img src="VM.png" alt="VRAY" class="vray-icon" />
+      ОБНОВИТЬ ПОДПИСКУ
+    </button>
+  </div>
 
   <a class="email-btn" href="mailto:awesomei3@yandex.ru">
     <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -295,6 +424,40 @@
     window.addEventListener('resize', () => { resize(); });
     init();
     draw();
+
+    function toggleConverter() {
+      const form = document.getElementById('converterForm');
+      form.classList.toggle('visible');
+      if (form.classList.contains('visible')) {
+        document.getElementById('converterInput').focus();
+      }
+    }
+
+    document.getElementById('converterInput').addEventListener('input', function () {
+      const val = this.value;
+      const replaced = val.replaceAll('89.125.88.65', '94.177.13.239');
+      const resultDiv = document.getElementById('converterResult');
+      const box = document.getElementById('resultBox');
+      if (replaced && replaced !== val) {
+        box.textContent = replaced;
+        resultDiv.classList.add('visible');
+        document.getElementById('copyHint').textContent = '';
+      } else if (val.trim()) {
+        box.textContent = replaced;
+        resultDiv.classList.add('visible');
+        document.getElementById('copyHint').textContent = val === replaced ? '(IP не найден в ссылке)' : '';
+      } else {
+        resultDiv.classList.remove('visible');
+      }
+    });
+
+    function copyResult() {
+      const text = document.getElementById('resultBox').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById('copyHint').textContent = '✓ Скопировано!';
+        setTimeout(() => { document.getElementById('copyHint').textContent = ''; }, 2000);
+      });
+    }
   </script>
 </body>
 </html>
