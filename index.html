@@ -435,17 +435,15 @@
 
     document.getElementById('converterInput').addEventListener('input', function () {
       const val = this.value;
-      const replaced = val.replace(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g, '94.177.13.239');
       const resultDiv = document.getElementById('converterResult');
       const box = document.getElementById('resultBox');
-      if (replaced && replaced !== val) {
-        box.textContent = replaced;
+      const ipRegex = /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/;
+      const hasSave666 = val.includes('save666');
+      const hasIP = ipRegex.test(val);
+      if (val.trim() && hasSave666 && hasIP) {
+        box.textContent = val.replace(ipRegex, '94.177.13.239');
         resultDiv.classList.add('visible');
         document.getElementById('copyHint').textContent = '';
-      } else if (val.trim()) {
-        box.textContent = replaced;
-        resultDiv.classList.add('visible');
-        document.getElementById('copyHint').textContent = val === replaced ? '(IP не найден в ссылке)' : '';
       } else {
         resultDiv.classList.remove('visible');
       }
