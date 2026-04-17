@@ -441,7 +441,7 @@
       const hasSave666 = val.includes('save666');
       const hasIP = ipRegex.test(val);
       if (val.trim() && hasSave666 && hasIP) {
-        box.textContent = val.replace(ipRegex, '212.193.18.144');
+        box.textContent = val.replace(ipRegex, '212.193.18.205');
         resultDiv.classList.add('visible');
         document.getElementById('copyHint').textContent = '';
       } else {
