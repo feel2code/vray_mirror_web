@@ -8,11 +8,13 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root { font-size: 19.2px; }
+
     body {
       background: #0d0d0f;
       color: #e0e0e0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Vazirmatn', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      font-size: 16px;
+      font-size: 1rem;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -34,8 +36,8 @@
     }
 
     .logo-circle {
-      width: 96px;
-      height: 96px;
+      width: 115px;
+      height: 115px;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid #3a3a4a;
@@ -80,7 +82,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      width: min(100%, 260px);
+      width: min(100%, 312px);
       padding: 0.55rem 1.25rem;
       border-radius: 10px;
       background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
@@ -137,7 +139,7 @@
 
     .converter-form textarea {
       width: 100%;
-      min-height: 80px;
+      min-height: 96px;
       background: #0d0d0f;
       border: 1px solid #3a3a4a;
       border-radius: 8px;
@@ -260,7 +262,7 @@
     @media (max-width: 480px) {
       h1 { font-size: 1.4rem; }
       .grid { grid-template-columns: 1fr 1fr; gap: 0.9rem; }
-      .logo-circle { width: 76px; height: 76px; }
+      .logo-circle { width: 91px; height: 91px; }
     }
 
     @media (max-width: 320px) {
@@ -368,10 +370,25 @@
       return {
         x:     Math.random() * canvas.width,
         y:     Math.random() * canvas.height,
-        r:     Math.random() * 1.4 + 0.2,
-        speed: Math.random() * 0.18 + 0.04,
+        r:     Math.random() * 1.4 + 0.3,
+        speed: Math.random() * 1.0 + 0.3,
         alpha: Math.random() * 0.6 + 0.3,
       };
+    }
+
+    function resetStar(star) {
+      const fromTop = Math.random() < 0.5;
+      star.speed = Math.random() * 0.81 + 0.18;
+      star.alpha = Math.random() * 0.6 + 0.3;
+      star.r = Math.random() * 1.4 + 0.2;
+
+      if (fromTop) {
+        star.x = Math.random() * canvas.width;
+        star.y = -2;
+      } else {
+        star.x = canvas.width + 2;
+        star.y = Math.random() * canvas.height;
+      }
     }
 
     function init() {
@@ -388,13 +405,10 @@
         ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
         ctx.fill();
 
+        s.x -= s.speed;
         s.y += s.speed;
-        if (s.y > canvas.height + 2) {
-          s.x     = Math.random() * canvas.width;
-          s.y     = -2;
-          s.speed = Math.random() * 0.18 + 0.04;
-          s.alpha = Math.random() * 0.6 + 0.3;
-          s.r     = Math.random() * 1.4 + 0.2;
+        if (s.x < -2 || s.y > canvas.height + 2) {
+          resetStar(s);
         }
       }
       requestAnimationFrame(draw);
